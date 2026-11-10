@@ -494,16 +494,7 @@ async function search(){
   }
 
   
-if (
-  !SUPABASE_ANON_KEY ||
-  SUPABASE_ANON_KEY ===
-    "PASTE_YOUR_LEGACY_ANON_KEY_HERE"
-) {
-  alert("请先配置 Supabase anon/public 密钥。");
-  return;
-}
 
-  }
 
   searching = true;
   searchButton.disabled = true;
