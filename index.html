@@ -4,88 +4,1026 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eee7e9">
 <title>共鸣 Resonance</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(145deg,#eee7e9,#faf6ef);color:#322d38;font-family:-apple-system,"PingFang SC",sans-serif}
-main{max-width:680px;margin:auto;padding:42px 20px}
-h1{font-family:Georgia,serif;font-size:35px}
-.sub,.muted{color:#817886}
-.panel,.result{background:#ffffffbd;border-radius:22px;padding:20px;margin:15px 0;box-shadow:0 8px 30px #6d52640d}
-textarea{width:100%;min-height:130px;border:0;background:transparent;font-size:17px;line-height:1.7;outline:none}
-button{border:0;border-radius:14px;padding:13px 18px;font-size:15px}
-.primary{width:100%;background:#89718f;color:white}
-.tabs{display:flex;gap:8px;margin:20px 0}
-.tabs button{flex:1;background:#fff9}
-.tabs .active{background:#89718f;color:white}
-.quote{font:19px/1.8 Georgia,"Songti SC",serif}
-.meta{font-size:13px;color:#817886;margin-top:12px}
-a{color:#796383}
-.secondary{background:#eee7ed;margin-top:12px}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(145deg,#eee7e9,#faf6ef);
+  color:#322d38;
+  font-family:-apple-system,BlinkMacSystemFont,
+    "PingFang SC","Microsoft YaHei",sans-serif;
+}
+
+main{
+  max-width:680px;
+  margin:auto;
+  padding:42px 20px 65px;
+}
+
+.symbol{
+  font-size:30px;
+  color:#89718f;
+}
+
+h1{
+  font-family:Georgia,serif;
+  font-size:35px;
+  margin:14px 0 8px;
+  font-weight:500;
+}
+
+h1 small{
+  font-size:19px;
+  font-weight:400;
+  color:#817886;
+}
+
+.sub,.muted{
+  color:#817886;
+}
+
+.sub{
+  line-height:1.8;
+  margin-bottom:30px;
+}
+
+.panel,.result{
+  background:#ffffffbd;
+  border-radius:22px;
+  padding:20px;
+  margin:15px 0;
+  box-shadow:0 8px 30px #6d52640d;
+}
+
+.panel b{
+  display:block;
+  margin-bottom:14px;
+}
+
+textarea{
+  width:100%;
+  min-height:130px;
+  resize:vertical;
+  border:0;
+  background:transparent;
+  color:#322d38;
+  font-size:17px;
+  line-height:1.7;
+  outline:none;
+  font-family:inherit;
+}
+
+textarea::placeholder{
+  color:#aaa0aa;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:13px 18px;
+  font-size:15px;
+  font-family:inherit;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.primary{
+  width:100%;
+  background:#89718f;
+  color:white;
+  transition:background .2s;
+}
+
+.primary:hover{
+  background:#755e7d;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  margin:25px 0 20px;
+}
+
+.tabs button{
+  flex:1;
+  background:#ffffff99;
+  padding:12px 7px;
+  font-size:14px;
+}
+
+.tabs .active{
+  background:#89718f;
+  color:white;
+}
+
+.result{
+  animation:appear .35s ease;
+}
+
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.section-label{
+  color:#89718f;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:2px;
+  margin-bottom:15px;
+}
+
+.quote{
+  font:19px/1.8 Georgia,"Songti SC",serif;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+}
+
+.meta{
+  font-size:13px;
+  color:#817886;
+  margin-top:12px;
+  line-height:1.7;
+}
+
+a{
+  color:#796383;
+}
+
+.secondary{
+  background:#eee7ed;
+  color:#66536d;
+  margin-top:14px;
+}
+
+.reflection{
+  background:linear-gradient(
+    145deg,
+    #f2e9f0,
+    #fffaf5
+  );
+  border:1px solid #e8dce7;
+}
+
+.reflection-text{
+  font-size:16px;
+  line-height:2;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+.reflection-title{
+  font-family:Georgia,"Songti SC",serif;
+  font-size:22px;
+  margin-bottom:16px;
+}
+
+.score{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  background:#eee7ed;
+  color:#796383;
+  font-size:12px;
+  margin-bottom:14px;
+}
+
+.status{
+  font-size:13px;
+  color:#817886;
+  margin-top:13px;
+  line-height:1.7;
+}
+
+.notice{
+  padding:18px;
+  line-height:1.8;
+  color:#817886;
+  text-align:center;
+}
+
+.history-text{
+  font-size:16px;
+  line-height:1.8;
+  margin:13px 0;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+.footer{
+  font-size:12px;
+  line-height:1.9;
+  margin-top:35px;
+  color:#817886;
+}
+
+.loading{
+  text-align:center;
+  padding:35px 10px;
+  color:#817886;
+  line-height:2;
+}
+
+.loading-symbol{
+  font-size:30px;
+  color:#89718f;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.35}
+  50%{opacity:1}
+}
+
+@media(max-width:480px){
+  main{padding:30px 17px 50px}
+  h1{font-size:31px}
+  .quote{font-size:18px}
+  .tabs button{font-size:12px}
+}
 </style>
 </head>
+
 <body>
+
 <main>
-<div style="font-size:30px">✦</div>
-<h1>共鸣 <small>Resonance</small></h1>
-<p class="sub">你所想到的，也曾有人在世界的某个角落想过。</p>
+
+<div class="symbol">✦</div>
+
+<h1>
+  共鸣 <small>Resonance</small>
+</h1>
+
+<p class="sub">
+  你所想到的，也曾有人在世界的某个角落想过。
+</p>
+
 <div class="panel">
-<b>今天，你想到了什么？</b>
-<textarea id="thought" placeholder="写下一句话，或者一个突然出现的念头……"></textarea>
-<button class="primary" onclick="search()">✦ 寻找思想的共鸣</button>
+
+  <b>今天，你想到了什么？</b>
+
+  <textarea
+    id="thought"
+    maxlength="2000"
+    placeholder="写下一句话，或者一个突然出现的念头……"
+  ></textarea>
+
+  <button
+    class="primary"
+    id="searchButton"
+    onclick="search()"
+  >
+    ✦ 寻找思想的共鸣
+  </button>
+
+  <div class="status" id="status" aria-live="polite">
+    写下你的感悟，与世界各个时代的思想相遇。
+  </div>
+
 </div>
+
 <div class="tabs">
-<button onclick="show('results')" id="tresults" class="active">共鸣发现</button>
-<button onclick="show('saved')" id="tsaved">我的收藏</button>
-<button onclick="show('history')" id="thistory">灵感日记</button>
+
+  <button
+    id="tresults"
+    class="active"
+    onclick="show('results')"
+  >
+    共鸣发现
+  </button>
+
+  <button
+    id="tsaved"
+    onclick="show('saved')"
+  >
+    我的收藏
+  </button>
+
+  <button
+    id="thistory"
+    onclick="show('history')"
+  >
+    灵感日记
+  </button>
+
 </div>
-<div id="content" class="muted">写下一个念头，开始寻找共鸣。</div>
-<p class="muted" style="font-size:12px;line-height:1.7;margin-top:35px">当前为离线经典文学演示版，采用主题关键词扩展匹配，并非全球书籍全文搜索。收藏保存在当前浏览器中。</p>
+
+<div id="content" aria-live="polite">
+  <div class="notice">
+    写下一个念头，开始寻找共鸣。
+  </div>
+</div>
+
+<p class="footer">
+  Resonance · 文学思想共鸣实验
+  <br>
+  通过语义搜索发现文学作品中的思想联系。
+  AI 解读仅供思考参考，不代表作者原意。
+  <br>
+  当前文学数据库仍在建设中，并非全球书籍全文搜索。
+  收藏与灵感日记保存在当前浏览器中。
+</p>
+
 </main>
+
 <script>
-const books=[
-{q:"知我者谓我心忧，不知我者谓我何求。",a:"佚名",b:"《诗经·黍离》",k:"孤独 理解 知己 误解 心事 悲伤",u:"https://zh.wikisource.org/wiki/詩經/黍離"},
-{q:"人生天地之间，若白驹之过隙，忽然而已。",a:"庄子",b:"《庄子·知北游》",k:"时间 生命 短暂 岁月 无常",u:"https://zh.wikisource.org/wiki/莊子/知北遊"},
-{q:"相濡以沫，不如相忘于江湖。",a:"庄子",b:"《庄子·大宗师》",k:"爱情 离别 放手 自由 关系 失去",u:"https://zh.wikisource.org/wiki/莊子/大宗師"},
-{q:"海内存知己，天涯若比邻。",a:"王勃",b:"《送杜少府之任蜀州》",k:"朋友 友谊 距离 陪伴 思念",u:"https://zh.wikisource.org/wiki/送杜少府之任蜀州"},
-{q:"此情可待成追忆，只是当时已惘然。",a:"李商隐",b:"《锦瑟》",k:"怀念 回忆 遗憾 过去 爱情 失去",u:"https://zh.wikisource.org/wiki/錦瑟"},
-{q:"行到水穷处，坐看云起时。",a:"王维",b:"《终南别业》",k:"平静 人生 困境 自由 自然 希望",u:"https://zh.wikisource.org/wiki/終南別業"},
-{q:"不以物喜，不以己悲。",a:"范仲淹",b:"《岳阳楼记》",k:"情绪 自我 平静 得失 成败",u:"https://zh.wikisource.org/wiki/岳陽樓記"},
-{q:"人有悲欢离合，月有阴晴圆缺，此事古难全。",a:"苏轼",b:"《水调歌头》",k:"离别 思念 家庭 团圆 遗憾",u:"https://zh.wikisource.org/wiki/水調歌頭_(明月幾時有)"},
-{q:"To be, or not to be, that is the question.",a:"William Shakespeare",b:"Hamlet",k:"存在 人生 生死 选择 痛苦",u:"https://www.gutenberg.org/ebooks/1524"},
-{q:"I am no bird; and no net ensnares me: I am a free human being with an independent will.",a:"Charlotte Brontë",b:"Jane Eyre",k:"自由 独立 自我 女性 尊严",u:"https://www.gutenberg.org/ebooks/1260"},
-{q:"All happy families are alike; each unhappy family is unhappy in its own way.",a:"Leo Tolstoy",b:"Anna Karenina",k:"家庭 婚姻 幸福 痛苦 关系",u:"https://www.gutenberg.org/ebooks/1399"}
-];
-let results=[];
-const get=k=>JSON.parse(localStorage.getItem(k)||"[]");
-const put=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-function search(){
-let q=document.getElementById("thought").value.trim();
-if(!q){alert("请先输入灵感");return}
-let terms=q;
-const expand={怀念:"回忆 思念 过去 遗憾",孤独:"知己 理解 误解",失去:"离别 放手 回忆",爱:"爱情 陪伴 关系",时间:"岁月 生命 短暂",自由:"独立 选择",工作:"成败 情绪 自我",孩子:"家庭 生命 陪伴"};
-for(let k in expand)if(q.includes(k))terms+=" "+expand[k];
-results=books.map((b,i)=>({i,s:b.k.split(" ").filter(w=>terms.includes(w)).length*3+[...new Set(q)].filter(c=>b.q.includes(c)).length*.2})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,8).map(x=>x.i);
-let h=get("history");h.unshift({q,date:new Date().toLocaleString()});put("history",h.slice(0,100));
-show("results")
+
+/*
+  RESONANCE CONFIGURATION
+
+  只填写旧版 Supabase anon/public JWT。
+
+  不要填写：
+  - service_role
+  - sb_secret_
+  - DeepSeek API Key
+  - DASHSCOPE_API_KEY
+*/
+
+const SUPABASE_URL =
+  "https://wgiwnzmgbrmodsamqnxy.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaXduem1nYnJtb2RzYW1xbnh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyODMwMTUsImV4cCI6MjEwOTg1OTAxNX0.agIY5gfW3tAjEJzyVXblfq_uEI9MivfpJGwTnbhrV_w";
+
+const SEARCH_ENDPOINT =
+  SUPABASE_URL + "/functions/v1/resonance-search";
+
+const STORAGE_SAVED = "resonance_saved_v2";
+const STORAGE_HISTORY = "resonance_history_v2";
+
+// 只显示具有一定相关性的文学段落。
+// 暂定阈值，可根据后续测试调整。
+const DISPLAY_THRESHOLD = 0.30;
+
+let results = [];
+let reflection = null;
+let inspiration = "";
+let usage = null;
+let current = "results";
+let searching = false;
+
+const contentEl = document.getElementById("content");
+const thoughtEl = document.getElementById("thought");
+const searchButton = document.getElementById("searchButton");
+const statusEl = document.getElementById("status");
+
+
+/* ---------- 本地数据 ---------- */
+
+function get(key){
+  try{
+    const value = JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
+    return Array.isArray(value) ? value : [];
+  }catch{
+    return [];
+  }
 }
-function card(i){
-let b=books[i],saved=get("saved").includes(i);
-return `<div class="result"><div class="quote">“${b.q}”</div><div class="meta">${b.a} · ${b.b}</div><div class="meta"><a href="${b.u}" target="_blank" rel="noopener">核对作品来源 ↗</a></div><button class="secondary" onclick="save(${i})">${saved?"♥ 已收藏":"♡ 收藏"}</button></div>`
+
+function put(key,value){
+  try{
+    localStorage.setItem(
+      key,
+      JSON.stringify(value)
+    );
+    return true;
+  }catch{
+    return false;
+  }
 }
-function save(i){
-let a=get("saved");put("saved",a.includes(i)?a.filter(x=>x!==i):[...a,i]);show(current)
+
+
+/* ---------- 安全文本处理 ---------- */
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
 }
-let current="results";
+
+function safeURL(value){
+  try{
+    const url = new URL(value);
+    return ["https:","http:"].includes(url.protocol)
+      ? url.href
+      : "";
+  }catch{
+    return "";
+  }
+}
+
+function itemKey(item){
+  return [
+    item.id,
+    item.title,
+    item.content
+  ].join("::");
+}
+
+function isValidItem(item){
+  return item &&
+    typeof item === "object" &&
+    typeof item.content === "string" &&
+    typeof item.title === "string";
+}
+
+
+/* ---------- 搜索状态 ---------- */
+
+function updateStatus(message){
+  statusEl.textContent = message;
+}
+
+function updateUsage(data){
+  if(
+    !data ||
+    !Number.isFinite(Number(data.remaining))
+  ){
+    return;
+  }
+
+  usage = data;
+
+  updateStatus(
+    "今日共鸣探索剩余 " +
+    data.remaining +
+    " / " +
+    data.daily_limit +
+    " 次 · 全站共享额度"
+  );
+}
+
+
+/* ---------- AI 搜索 ---------- */
+
+async function search(){
+
+  if(searching) return;
+
+  const text = thoughtEl.value.trim();
+
+  if(!text){
+    alert("请先写下一段灵感。");
+    thoughtEl.focus();
+    return;
+  }
+
+  if(text.length > 2000){
+    alert("请输入不超过2000字的灵感。");
+    return;
+  }
+
+  if(
+    SUPABASE_ANON_KEY ===
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaXduem1nYnJtb2RzYW1xbnh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyODMwMTUsImV4cCI6MjEwOTg1OTAxNX0.agIY5gfW3tAjEJzyVXblfq_uEI9MivfpJGwTnbhrV_w"
+  ){
+    alert(
+      "请先在代码中配置 Supabase 的 anon/public 密钥。"
+    );
+    return;
+  }
+
+  searching = true;
+  searchButton.disabled = true;
+  searchButton.textContent = "✦ 正在寻找共鸣……";
+
+  show("results");
+
+  contentEl.innerHTML = `
+    <div class="loading">
+      <div class="loading-symbol">✦</div>
+      正在穿越文字，寻找与你相近的思想……
+    </div>
+  `;
+
+  updateStatus("正在进行文学语义搜索与共鸣解读……");
+
+  try{
+
+    const controller = new AbortController();
+
+    const timeout = setTimeout(
+      () => controller.abort(),
+      45000
+    );
+
+    let response;
+
+    try{
+      response = await fetch(
+        SEARCH_ENDPOINT,
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json",
+            "apikey":SUPABASE_ANON_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_ANON_KEY
+          },
+          body:JSON.stringify({
+            text:text
+          }),
+          signal:controller.signal
+        }
+      );
+    }finally{
+      clearTimeout(timeout);
+    }
+
+    const data = await response.json();
+
+    if(!response.ok){
+
+      if(
+        response.status === 429 ||
+        data.code === "DAILY_LIMIT_REACHED"
+      ){
+        throw new Error(
+          "今天的共鸣探索额度已用完，请明天再来。"
+        );
+      }
+
+      throw new Error(
+        data.error ||
+        "搜索暂时不可用，请稍后重试。"
+      );
+    }
+
+    if(!data.success){
+      throw new Error(
+        data.error || "搜索失败"
+      );
+    }
+
+    inspiration = text;
+    results = Array.isArray(data.results)
+      ? data.results.filter(isValidItem)
+      : [];
+
+    reflection =
+      typeof data.reflection === "string"
+      ? data.reflection
+      : null;
+
+    // 搜索成功后才保存灵感日记
+    const history = get(STORAGE_HISTORY);
+
+    history.unshift({
+      q:text,
+      date:new Date().toLocaleString("zh-CN")
+    });
+
+    put(
+      STORAGE_HISTORY,
+      history.slice(0,100)
+    );
+
+    if(data.usage){
+      updateUsage(data.usage);
+    }else{
+      updateStatus("共鸣探索完成。");
+    }
+
+    show("results");
+
+  }catch(error){
+
+    const message =
+      error.name === "AbortError"
+      ? "等待时间过长，请稍后重试。"
+      : error.message ||
+        "连接失败，请稍后重试。";
+
+    contentEl.innerHTML = `
+      <div class="result">
+        <div class="section-label">
+          CONNECTION NOTICE
+        </div>
+        <p>${escapeHTML(message)}</p>
+        <p class="meta">
+          请检查网络连接或稍后再试。
+        </p>
+      </div>
+    `;
+
+    updateStatus(message);
+
+  }finally{
+
+    searching = false;
+    searchButton.disabled = false;
+    searchButton.textContent =
+      "✦ 寻找思想的共鸣";
+
+  }
+}
+
+
+/* ---------- 文学卡片 ---------- */
+
+function card(item,allowSave=true){
+
+  if(!isValidItem(item)) return "";
+
+  const saved = get(STORAGE_SAVED);
+
+  const key = itemKey(item);
+
+  const isSaved = saved.some(
+    x => itemKey(x) === key
+  );
+
+  const similarity = Number(item.similarity);
+
+  const score =
+    Number.isFinite(similarity)
+    ? Math.round(similarity * 1000) / 10
+    : null;
+
+  const url = safeURL(item.source_url);
+
+  const sourceLink = url
+    ? `<div class="meta">
+         <a
+           href="${escapeHTML(url)}"
+           target="_blank"
+           rel="noopener noreferrer"
+         >
+           核对作品来源 ↗
+         </a>
+       </div>`
+    : "";
+
+  let button = "";
+
+  if(allowSave){
+
+    const encodedKey = encodeURIComponent(key);
+
+    button = `
+      <button
+        class="secondary"
+        data-save-key="${escapeHTML(encodedKey)}"
+      >
+        ${isSaved ? "♥ 已收藏" : "♡ 收藏"}
+      </button>
+    `;
+  }
+
+  return `
+    <article class="result">
+
+      <div class="section-label">
+        LITERARY ECHO
+      </div>
+
+      ${
+        score !== null
+        ? `<div class="score">
+             语义相似度 ${score}%
+           </div>`
+        : ""
+      }
+
+      <div class="quote">
+        “${escapeHTML(item.content)}”
+      </div>
+
+      <div class="meta">
+        ${escapeHTML(item.author || "未知作者")}
+        ·
+        ${escapeHTML(item.title)}
+      </div>
+
+      ${sourceLink}
+
+      ${button}
+
+    </article>
+  `;
+}
+
+
+/* ---------- 我的收藏 ---------- */
+
+function saveByKey(key){
+
+  const item = results.find(
+    x => itemKey(x) === key
+  );
+
+  if(!item) return;
+
+  const saved = get(STORAGE_SAVED);
+
+  const exists = saved.some(
+    x => itemKey(x) === key
+  );
+
+  const next = exists
+    ? saved.filter(x => itemKey(x) !== key)
+    : [item,...saved];
+
+  put(STORAGE_SAVED,next);
+
+  show(current);
+}
+
+function removeSaved(key){
+
+  const next = get(STORAGE_SAVED)
+    .filter(x => itemKey(x) !== key);
+
+  put(STORAGE_SAVED,next);
+
+  show("saved");
+}
+
+function renderSaved(){
+
+  const saved = get(STORAGE_SAVED)
+    .filter(isValidItem);
+
+  if(!saved.length){
+    contentEl.innerHTML = `
+      <div class="notice">
+        还没有收藏的文学片段。
+      </div>
+    `;
+    return;
+  }
+
+  contentEl.innerHTML = saved.map(item => {
+
+    const key = encodeURIComponent(
+      itemKey(item)
+    );
+
+    return `
+      ${card(item,false)}
+      <button
+        class="secondary"
+        data-remove-key="${escapeHTML(key)}"
+      >
+        移除收藏
+      </button>
+    `;
+
+  }).join("");
+}
+
+
+/* ---------- 灵感日记 ---------- */
+
+function renderHistory(){
+
+  const history = get(STORAGE_HISTORY);
+
+  if(!history.length){
+    contentEl.innerHTML = `
+      <div class="notice">
+        还没有灵感记录。
+      </div>
+    `;
+    return;
+  }
+
+  contentEl.innerHTML = history.map(
+    (item,index) => `
+      <div class="result">
+
+        <div class="section-label">
+          INSPIRATION JOURNAL
+        </div>
+
+        <div class="meta">
+          ${escapeHTML(item.date)}
+        </div>
+
+        <div class="history-text">
+          ${escapeHTML(item.q)}
+        </div>
+
+        <button
+          class="secondary"
+          data-history-index="${index}"
+        >
+          再次寻找共鸣
+        </button>
+
+      </div>
+    `
+  ).join("");
+}
+
+function searchHistory(index){
+
+  const history = get(STORAGE_HISTORY);
+
+  const item = history[index];
+
+  if(!item) return;
+
+  thoughtEl.value = item.q;
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  search();
+}
+
+
+/* ---------- 共鸣发现 ---------- */
+
+function renderResults(){
+
+  if(!inspiration){
+    contentEl.innerHTML = `
+      <div class="notice">
+        写下一个念头，开始寻找共鸣。
+      </div>
+    `;
+    return;
+  }
+
+  let html = `
+    <div class="result">
+
+      <div class="section-label">
+        YOUR INSPIRATION
+      </div>
+
+      <div class="history-text">
+        ${escapeHTML(inspiration)}
+      </div>
+
+    </div>
+  `;
+
+  if(reflection){
+
+    html += `
+      <div class="result reflection">
+
+        <div class="section-label">
+          RESONANCE · 思想的回声
+        </div>
+
+        <div class="reflection-title">
+          当你的思想与文学相遇
+        </div>
+
+        <div class="reflection-text">
+          ${escapeHTML(reflection)}
+        </div>
+
+        <div class="meta">
+          由 DeepSeek 根据检索到的文学片段生成
+        </div>
+
+      </div>
+    `;
+  }
+
+  const relevant = results.filter(
+    item =>
+      typeof item.similarity === "number" &&
+      item.similarity >= DISPLAY_THRESHOLD
+  );
+
+  if(relevant.length){
+
+    html += `
+      <div class="section-label"
+           style="margin:28px 0 10px">
+        与你产生共鸣的文字
+      </div>
+    `;
+
+    html += relevant.map(
+      item => card(item)
+    ).join("");
+
+  }else{
+
+    html += `
+      <div class="result">
+        <p class="muted">
+          目前还没有找到足够相关的文学片段。
+          随着作品库逐渐丰富，
+          这里会出现更多跨越时代的思想回应。
+        </p>
+      </div>
+    `;
+  }
+
+  contentEl.innerHTML = html;
+}
+
+
+/* ---------- 栏目切换 ---------- */
+
 function show(tab){
-current=tab;
-for(let t of ["results","saved","history"])document.getElementById("t"+t).classList.toggle("active",t===tab);
-let el=document.getElementById("content");
-if(tab==="results")el.innerHTML=results.length?results.map(card).join(""):"暂无匹配，请换一种表达试试。";
-if(tab==="saved")el.innerHTML=get("saved").length?get("saved").map(card).join(""):"还没有收藏。";
-if(tab==="history")el.innerHTML=get("history").map(x=>`<div class="result"><small>${x.date}</small><p></p></div>`).join("")||"还没有灵感记录。";
-if(tab==="history")get("history").forEach((x,i)=>el.children[i].querySelector("p").textContent=x.q);
+
+  current = tab;
+
+  for(const name of [
+    "results",
+    "saved",
+    "history"
+  ]){
+
+    document.getElementById(
+      "t" + name
+    ).classList.toggle(
+      "active",
+      name === tab
+    );
+  }
+
+  if(tab === "results"){
+    renderResults();
+  }
+
+  if(tab === "saved"){
+    renderSaved();
+  }
+
+  if(tab === "history"){
+    renderHistory();
+  }
 }
+
+
+/* ---------- 安全的事件委托 ---------- */
+
+contentEl.addEventListener(
+  "click",
+  (event) => {
+
+    const button = event.target.closest("button");
+
+    if(!button) return;
+
+    if(button.hasAttribute("data-save-key")){
+
+      const key = decodeURIComponent(
+        button.getAttribute("data-save-key")
+      );
+
+      saveByKey(key);
+      return;
+    }
+
+    if(button.hasAttribute("data-remove-key")){
+
+      const key = decodeURIComponent(
+        button.getAttribute("data-remove-key")
+      );
+
+      removeSaved(key);
+      return;
+    }
+
+    if(button.hasAttribute("data-history-index")){
+
+      const index = Number(
+        button.getAttribute("data-history-index")
+      );
+
+      searchHistory(index);
+    }
+  }
+);
+
+
+/* ---------- 初始化 ---------- */
+
+show("results");
+
 </script>
+
 </body>
 </html>
