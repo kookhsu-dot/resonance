@@ -256,6 +256,103 @@ a{
   .quote{font-size:18px}
   .tabs button{font-size:12px}
 }
+
+/* Resonance · Literary Editorial Design */
+
+.reflection{
+  background:linear-gradient(150deg,#f6f0ed,#eee6ed);
+  border:1px solid #ded1db;
+  padding:32px 27px;
+  border-radius:6px 26px 6px 26px;
+}
+
+.reflection-title{
+  font-family:Georgia,"Songti SC",serif;
+  font-size:25px;
+  font-weight:400;
+  line-height:1.5;
+  letter-spacing:1px;
+  margin:0 0 35px;
+}
+
+.reflection-essay{
+  color:#453b45;
+}
+
+.essay-section{
+  padding:27px 0 32px;
+  border-top:1px solid #d5c6d0;
+}
+
+.essay-section:last-child{
+  border-bottom:1px solid #d5c6d0;
+}
+
+.essay-heading{
+  display:flex;
+  align-items:baseline;
+  gap:13px;
+  margin-bottom:20px;
+}
+
+.essay-number{
+  font:italic 22px Georgia,serif;
+  color:#aa91a4;
+}
+
+.essay-name{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#846b81;
+}
+
+.essay-body{
+  font-family:Georgia,"Songti SC","Noto Serif SC",serif;
+  font-size:16px;
+  line-height:2.25;
+  letter-spacing:.35px;
+  overflow-wrap:anywhere;
+}
+
+.essay-body p{
+  margin:0 0 21px;
+}
+
+.essay-body p:last-child{
+  margin-bottom:0;
+}
+
+.essay-body strong{
+  display:block;
+  font-family:Georgia,"Songti SC",serif;
+  font-size:18px;
+  font-weight:600;
+  color:#72586f;
+  margin-bottom:10px;
+}
+
+.essay-section:last-child{
+  margin:25px -10px 0;
+  padding:28px 20px;
+  background:#e7dbe3;
+  border:0;
+  border-radius:4px 20px 4px 20px;
+}
+
+.essay-section:last-child .essay-body{
+  font-size:19px;
+  line-height:2.1;
+  font-style:italic;
+}
+
+@media(max-width:480px){
+  .reflection{padding:26px 21px}
+  .essay-body{font-size:15px}
+  .essay-section:last-child .essay-body{
+    font-size:17px;
+  }
+}
+
 </style>
 </head>
 
@@ -850,6 +947,69 @@ function searchHistory(index){
 
 /* ---------- 共鸣发现 ---------- */
 
+
+function renderReflection(text){
+
+  const names = [
+    "思想的起点",
+    "不同的声音",
+    "思想的交汇",
+    "留给你的问题"
+  ];
+
+  const parts = String(text || "").split(
+    /【(思想的起点|不同的声音|思想的交汇|留给你的问题)】/
+  );
+
+  if(parts.length < 3){
+    return '<div class="reflection-text">' +
+      escapeHTML(text) + '</div>';
+  }
+
+  let html = '<div class="reflection-essay">';
+
+  for(let i = 1; i < parts.length; i += 2){
+
+    const name = parts[i];
+    const body = (parts[i+1] || "").trim();
+    const number = names.indexOf(name) + 1;
+
+    const paragraphs = body
+      .split(/\n\s*\n/)
+      .filter(Boolean)
+      .map(p => {
+
+        const safe = escapeHTML(p)
+          .replace(
+            /\*\*(.*?)\*\*/g,
+            "<strong>$1</strong>"
+          )
+          .replace(/\n/g,"<br>");
+
+        return "<p>" + safe + "</p>";
+      })
+      .join("");
+
+    html += `
+      <section class="essay-section">
+        <div class="essay-heading">
+          <span class="essay-number">
+            ${String(number).padStart(2,"0")}
+          </span>
+          <span class="essay-name">
+            ${escapeHTML(name)}
+          </span>
+        </div>
+        <div class="essay-body">
+          ${paragraphs}
+        </div>
+      </section>
+    `;
+  }
+
+  return html + "</div>";
+}
+
 function renderResults(){
 
   if(!inspiration){
@@ -889,7 +1049,7 @@ function renderResults(){
         </div>
 
         <div class="reflection-text">
-          ${escapeHTML(reflection)}
+          ${renderReflection(reflection)}
         </div>
 
         <div class="meta">
