@@ -493,14 +493,14 @@ async function search(){
     return;
   }
 
-  if(
-    SUPABASE_ANON_KEY ===
+  if (
+  !SUPABASE_ANON_KEY ||
+  SUPABASE_ANON_KEY ===
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnaXduem1nYnJtb2RzYW1xbnh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyODMwMTUsImV4cCI6MjEwOTg1OTAxNX0.agIY5gfW3tAjEJzyVXblfq_uEI9MivfpJGwTnbhrV_w"
-  ){
-    alert(
-      "请先在代码中配置 Supabase 的 anon/public 密钥。"
-    );
-    return;
+) {
+  alert("请先配置 Supabase anon/public 密钥。");
+  return;
+}
   }
 
   searching = true;
